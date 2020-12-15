@@ -66,7 +66,7 @@ class NewsController @Inject constructor(
         }
 
         val latestNews = newsDao.last
-        val latestNewsDate = latestNews?.date ?: DateTime.now()
+        val latestNewsDate = latestNews?.date ?: DateTime.now().minusMonths(1)
 
         // Delete all too old items
         newsDao.cleanUp()

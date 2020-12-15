@@ -32,6 +32,9 @@ class DateSerializer : JsonDeserializer<DateTime>, JsonSerializer<DateTime> {
             try {
                 return it.parseDateTime(json?.asString)
             } catch (ignored: Exception) {
+                if (json?.asString=="0000-00-00 00:00:00"){
+                    return DateTime.now()
+                }
             }
         }
         throw JsonParseException("Unparseable date: \"${json?.asString.orEmpty()}\". Supported formats: ${Arrays.toString(formatStrings)}")
