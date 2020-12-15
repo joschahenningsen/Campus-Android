@@ -342,6 +342,9 @@ public final class TUMCabeClient {
     }
 
     public List<News> getNews(String lastNewsId) throws IOException {
+        if (lastNewsId.equals("")){
+            lastNewsId="1";
+        }
         return service.getNews(lastNewsId)
                 .execute()
                 .body();
