@@ -45,40 +45,6 @@ public class OpeningHoursDetailFragment extends Fragment {
         // NOP
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItemId = getArguments().getInt(ARG_ITEM_ID);
-            mItemContent = getArguments().getString(ARG_ITEM_CONTENT);
-        }
-        if (getArguments().containsKey(TWO_PANE) && !getArguments().getBoolean(TWO_PANE)) {
-            getActivity().setTitle(mItemContent);
-        }
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
-
-        // click on category in list
-        LocationDao dao = TcaDb.Companion.getInstance(getActivity())
-                                         .locationDao();
-        String[] categories = {"library", "info", "cafeteria_gar", "cafeteria_grh", "cafeteria", "cafeteria_pas", "cafeteria_wst"};
-        List<Location> locations = dao.getAllOfCategory(categories[mItemId]);
-
-        RecyclerView recyclerView = rootView.findViewById(R.id.fragment_item_detail_recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new OpeningHoursDetailAdapter(locations));
-
-        int spacing = Math.round(getResources().getDimension(R.dimen.material_card_view_padding));
-        recyclerView.addItemDecoration(new EqualSpacingItemDecoration(spacing));
-
-        return rootView;
-    }
-
     /**
      * change presentation of locations in the list
      */
@@ -127,6 +93,40 @@ public class OpeningHoursDetailFragment extends Fragment {
         // link email addresses and phone numbers (e.g. 089-123456)
         Linkify.addLinks(infoView, Linkify.EMAIL_ADDRESSES | Linkify.WEB_URLS);
         Linkify.addLinks(infoView, Pattern.compile("[0-9-]{6,}"), "tel:");
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
+            mItemId = getArguments().getInt(ARG_ITEM_ID);
+            mItemContent = getArguments().getString(ARG_ITEM_CONTENT);
+        }
+        if (getArguments().containsKey(TWO_PANE) && !getArguments().getBoolean(TWO_PANE)) {
+            getActivity().setTitle(mItemContent);
+        }
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
+
+        // click on category in list
+        LocationDao dao = TcaDb.Companion.getInstance(getActivity())
+                                         .locationDao();
+        String[] categories = {"library", "info", "cafeteria_gar", "cafeteria_grh", "cafeteria", "cafeteria_pas", "cafeteria_wst"};
+        List<Location> locations = dao.getAllOfCategory(categories[mItemId]);
+
+        RecyclerView recyclerView = rootView.findViewById(R.id.fragment_item_detail_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(new OpeningHoursDetailAdapter(locations));
+
+        int spacing = Math.round(getResources().getDimension(R.dimen.material_card_view_padding));
+        recyclerView.addItemDecoration(new EqualSpacingItemDecoration(spacing));
+
+        return rootView;
     }
 
     private class OpeningHoursDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

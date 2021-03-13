@@ -7,9 +7,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat.checkSelfPermission
-import androidx.core.app.ActivityCompat.requestPermissions
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
+import androidx.core.app.ActivityCompat.*
 import androidx.lifecycle.LiveDataReactiveStreams
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import de.tum.`in`.tumcampusapp.BuildConfig.DEBUG
@@ -26,9 +24,7 @@ import de.tum.`in`.tumcampusapp.utils.Utils
 import de.tum.`in`.tumcampusapp.utils.observe
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_startup.container
-import kotlinx.android.synthetic.main.activity_startup.startupLoadingProgressBar
-import kotlinx.android.synthetic.main.activity_startup.startupTumLogo
+import kotlinx.android.synthetic.main.activity_startup.*
 import org.jetbrains.anko.doAsync
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject

@@ -13,9 +13,9 @@ class GradesActivity : BaseActivity(R.layout.activity_grades) {
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.contentFrame, GradesFragment.newInstance())
-                .commit()
+                    .beginTransaction()
+                    .replace(R.id.contentFrame, GradesFragment.newInstance())
+                    .commit()
         }
     }
 

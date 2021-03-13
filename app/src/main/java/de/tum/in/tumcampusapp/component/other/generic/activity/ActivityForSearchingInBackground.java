@@ -52,7 +52,8 @@ public abstract class ActivityForSearchingInBackground<T> extends ActivityForSea
      * @param query Query to search for
      * @return Loaded results
      */
-    protected abstract @Nullable T onSearchInBackground(String query);
+    protected abstract @Nullable
+    T onSearchInBackground(String query);
 
     /**
      * Gets called after background task has finished. The

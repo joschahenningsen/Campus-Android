@@ -58,7 +58,8 @@ class GeofencingRegistrationService : JobIntentService() {
 
     companion object {
 
-        @JvmStatic fun startGeofencing(context: Context, work: Intent) {
+        @JvmStatic
+        fun startGeofencing(context: Context, work: Intent) {
             enqueueWork(context, GeofencingRegistrationService::class.java, GEOFENCING_SERVICE_JOB_ID, work)
         }
 

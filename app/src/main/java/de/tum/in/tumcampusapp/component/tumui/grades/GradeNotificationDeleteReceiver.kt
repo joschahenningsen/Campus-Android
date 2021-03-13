@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import de.tum.`in`.tumcampusapp.di.app
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 /**

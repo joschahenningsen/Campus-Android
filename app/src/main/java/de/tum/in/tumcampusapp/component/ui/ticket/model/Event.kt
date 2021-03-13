@@ -105,7 +105,8 @@ data class Event(
 
         const val defaultDuration = 7200000 // Milliseconds
 
-        @JvmField var CREATOR = object : Parcelable.Creator<Event> {
+        @JvmField
+        var CREATOR = object : Parcelable.Creator<Event> {
             override fun createFromParcel(parcel: Parcel) = Event(parcel)
 
             override fun newArray(size: Int) = arrayOfNulls<Event?>(size)

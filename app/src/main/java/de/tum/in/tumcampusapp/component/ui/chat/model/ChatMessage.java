@@ -20,19 +20,26 @@ public class ChatMessage implements Parcelable {
     public static final int STATUS_SENT = 0;
     public static final int STATUS_SENDING = 1;
     public static final int STATUS_ERROR = 2;
+    public static final Creator<ChatMessage> CREATOR = new Creator<ChatMessage>() {
+        @Override
+        public ChatMessage createFromParcel(Parcel in) {
+            return new ChatMessage(in);
+        }
 
+        @Override
+        public ChatMessage[] newArray(int size) {
+            return new ChatMessage[size];
+        }
+    };
     @PrimaryKey
     @ColumnInfo(name = "_id")
     private int id;
-
     private int previous;
     private int room;
     private String text;
     private DateTime timestamp;
-
     private String signature;
     private ChatMember member;
-
     @ColumnInfo(name = "sending")
     private int sendingStatus;
 
@@ -87,18 +94,6 @@ public class ChatMessage implements Parcelable {
         sendingStatus = in.readInt();
     }
 
-    public static final Creator<ChatMessage> CREATOR = new Creator<ChatMessage>() {
-        @Override
-        public ChatMessage createFromParcel(Parcel in) {
-            return new ChatMessage(in);
-        }
-
-        @Override
-        public ChatMessage[] newArray(int size) {
-            return new ChatMessage[size];
-        }
-    };
-
     public int getRoom() {
         return room;
     }
@@ -147,17 +142,16 @@ public class ChatMessage implements Parcelable {
         this.member = member;
     }
 
-
     public DateTime getTimestamp() {
         return timestamp;
     }
 
-    public String getFormattedTimestamp(Context context) {
-        return DateTimeUtils.INSTANCE.formatTimeOrDay(timestamp, context);
-    }
-
     public void setTimestamp(DateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getFormattedTimestamp(Context context) {
+        return DateTimeUtils.INSTANCE.formatTimeOrDay(timestamp, context);
     }
 
     public String getSignature() {
@@ -177,6 +171,7 @@ public class ChatMessage implements Parcelable {
             return R.string.status_sending_failed;
         }
     }
+
     public boolean isNewMessage() {
         return id == 0;
     }

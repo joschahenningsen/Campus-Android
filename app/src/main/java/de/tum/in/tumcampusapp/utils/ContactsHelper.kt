@@ -17,7 +17,8 @@ class ContactsHelper {
 
     companion object {
 
-        @JvmStatic fun saveToContacts(context: Context, employee: Employee) {
+        @JvmStatic
+        fun saveToContacts(context: Context, employee: Employee) {
             val ops = ArrayList<ContentProviderOperation>()
 
             val rawContactID = ops.size

@@ -3,12 +3,7 @@ package de.tum.`in`.tumcampusapp.component.ui.cafeteria.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -29,16 +24,14 @@ import de.tum.`in`.tumcampusapp.service.DownloadWorker
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.Utils
 import de.tum.`in`.tumcampusapp.utils.observeNonNull
-import kotlinx.android.synthetic.main.fragment_cafeteria.pager
-import kotlinx.android.synthetic.main.fragment_cafeteria.spinnerToolbar
-import kotlinx.android.synthetic.main.layout_error.*
+import kotlinx.android.synthetic.main.fragment_cafeteria.*
 import org.joda.time.DateTime
 import javax.inject.Inject
 import javax.inject.Provider
 
 class CafeteriaFragment : FragmentForDownloadingExternal(
-    R.layout.fragment_cafeteria,
-    R.string.cafeteria
+        R.layout.fragment_cafeteria,
+        R.string.cafeteria
 ), AdapterView.OnItemSelectedListener {
 
     @Inject
@@ -161,12 +154,12 @@ class CafeteriaFragment : FragmentForDownloadingExternal(
 
     private fun createArrayAdapter(): ArrayAdapter<Cafeteria> {
         return object : ArrayAdapter<Cafeteria>(
-            requireContext(), R.layout.simple_spinner_item_actionbar) {
+                requireContext(), R.layout.simple_spinner_item_actionbar) {
             private val inflater = LayoutInflater.from(context)
 
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val v = inflater.inflate(
-                    R.layout.simple_spinner_dropdown_item_actionbar_two_line, parent, false)
+                        R.layout.simple_spinner_dropdown_item_actionbar_two_line, parent, false)
                 val cafeteria = getItem(position)
 
                 val name = v.findViewById<TextView>(android.R.id.text1)
@@ -192,7 +185,7 @@ class CafeteriaFragment : FragmentForDownloadingExternal(
     override fun onNothingSelected(adapterView: AdapterView<*>?) = Unit
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater?.inflate(R.menu.menu_section_fragment_cafeteria_details, menu)
+        inflater.inflate(R.menu.menu_section_fragment_cafeteria_details, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -221,14 +214,14 @@ class CafeteriaFragment : FragmentForDownloadingExternal(
         val message = formatter.format(R.string.cafeteria_ingredients, true)
 
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.action_ingredients)
-            .setMessage(message)
-            .setPositiveButton(R.string.ok, null)
-            .create()
-            .apply {
-                window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
-            }
-            .show()
+                .setTitle(R.string.action_ingredients)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, null)
+                .create()
+                .apply {
+                    window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
+                }
+                .show()
     }
 
     companion object {

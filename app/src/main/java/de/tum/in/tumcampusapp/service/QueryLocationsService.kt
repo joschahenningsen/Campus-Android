@@ -70,7 +70,8 @@ class QueryLocationsService : JobIntentService() {
 
         private const val TIME_TO_SYNC_CALENDAR = 604800 // 1 week
 
-        @JvmStatic fun enqueueWork(context: Context) {
+        @JvmStatic
+        fun enqueueWork(context: Context) {
             Utils.log("Query locations work enqueued")
             JobIntentService.enqueueWork(context, QueryLocationsService::class.java,
                     Const.QUERY_LOCATIONS_SERVICE_JOB_ID, Intent())

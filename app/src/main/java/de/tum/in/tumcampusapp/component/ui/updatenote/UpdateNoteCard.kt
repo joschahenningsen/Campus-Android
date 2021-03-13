@@ -27,7 +27,7 @@ class UpdateNoteCard(context: Context) : Card(CardManager.CARD_UPDATE_NOTE, cont
 
     override fun shouldShow(prefs: SharedPreferences): Boolean {
         return Utils.getSettingBool(context, Const.SHOW_UPDATE_NOTE, false) &&
-        Utils.getSetting(context, Const.UPDATE_MESSAGE, "").isNotEmpty()
+                Utils.getSetting(context, Const.UPDATE_MESSAGE, "").isNotEmpty()
     }
 
     override fun discard(editor: SharedPreferences.Editor) {

@@ -25,7 +25,7 @@ import java.io.IOException
 class FcmReceiverService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
-        val data = message.data ?: return
+        val data = message.data
         Utils.log("Notification received: $data")
 
         // Legacy messages need to be handled - maybe some data is missing?
@@ -101,7 +101,7 @@ class FcmReceiverService : FirebaseMessagingService() {
         super.onNewToken(token)
         Utils.log("new FCM token received")
         Utils.setSetting(this, Const.FCM_INSTANCE_ID, FirebaseInstanceId.getInstance().id)
-        Utils.setSetting(this, Const.FCM_TOKEN_ID, token ?: "")
+        Utils.setSetting(this, Const.FCM_TOKEN_ID, token)
     }
 
     /**

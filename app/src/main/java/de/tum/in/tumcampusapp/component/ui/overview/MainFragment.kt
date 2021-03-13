@@ -35,8 +35,8 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class MainFragment : BaseFragment<Unit>(
-    R.layout.fragment_main,
-    R.string.home
+        R.layout.fragment_main,
+        R.string.home
 ), SwipeRefreshLayout.OnRefreshListener, CardInteractionListener {
 
     private var isConnectivityChangeReceiverRegistered = false
@@ -145,7 +145,8 @@ class MainFragment : BaseFragment<Unit>(
     }
 
     companion object {
-        @JvmStatic fun newInstance() = MainFragment()
+        @JvmStatic
+        fun newInstance() = MainFragment()
     }
 
     private inner class ItemTouchHelperCallback : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {

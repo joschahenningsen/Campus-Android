@@ -78,6 +78,7 @@ class NextLectureCard(context: Context) : Card(CardManager.CARD_NEXT_LECTURE, co
 
     companion object {
         private const val NEXT_LECTURE_DATE = "next_date"
+
         @JvmStatic
         fun inflateViewHolder(parent: ViewGroup, interactionListener: CardInteractionListener): CardViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.card_next_lecture_item, parent, false)

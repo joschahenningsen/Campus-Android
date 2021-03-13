@@ -121,6 +121,7 @@ class EduroamFixCard(
     companion object {
         private const val RADIUS_DNS = "radius.lrz.de"
         private const val AT_SIGN = "@"
+
         @JvmStatic
         fun inflateViewHolder(parent: ViewGroup, interactionListener: CardInteractionListener): CardViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.card_eduroam_fix, parent, false)

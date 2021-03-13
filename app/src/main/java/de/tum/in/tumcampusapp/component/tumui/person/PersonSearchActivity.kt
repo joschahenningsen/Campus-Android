@@ -11,9 +11,9 @@ class PersonSearchActivity : BaseActivity(R.layout.activity_person_search) {
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.contentFrame, PersonSearchFragment.newInstance())
-                .commit()
+                    .beginTransaction()
+                    .replace(R.id.contentFrame, PersonSearchFragment.newInstance())
+                    .commit()
         }
     }
 }

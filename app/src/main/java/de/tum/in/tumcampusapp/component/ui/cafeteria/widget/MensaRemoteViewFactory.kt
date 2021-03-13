@@ -17,9 +17,11 @@ class MensaRemoteViewFactory(private val applicationContext: Context) : RemoteVi
         menus = CafeteriaManager(applicationContext).bestMatchCafeteriaMenus
     }
 
-    override fun onDataSetChanged() { /* Noop */ }
+    override fun onDataSetChanged() { /* Noop */
+    }
 
-    override fun onDestroy() { /* Noop */ }
+    override fun onDestroy() { /* Noop */
+    }
 
     override fun getCount() = menus.size
 

@@ -12,11 +12,7 @@ import de.tum.`in`.tumcampusapp.api.app.AuthenticationManager
 import de.tum.`in`.tumcampusapp.api.app.exception.NoPublicKey
 import de.tum.`in`.tumcampusapp.api.tumonline.AccessTokenManager
 import de.tum.`in`.tumcampusapp.api.tumonline.TUMOnlineClient
-import de.tum.`in`.tumcampusapp.api.tumonline.exception.InactiveTokenException
-import de.tum.`in`.tumcampusapp.api.tumonline.exception.InvalidTokenException
-import de.tum.`in`.tumcampusapp.api.tumonline.exception.RequestLimitReachedException
-import de.tum.`in`.tumcampusapp.api.tumonline.exception.TokenLimitReachedException
-import de.tum.`in`.tumcampusapp.api.tumonline.exception.UnknownErrorException
+import de.tum.`in`.tumcampusapp.api.tumonline.exception.*
 import de.tum.`in`.tumcampusapp.api.tumonline.model.AccessToken
 import de.tum.`in`.tumcampusapp.component.other.generic.fragment.BaseFragment
 import de.tum.`in`.tumcampusapp.component.ui.onboarding.di.OnboardingComponent
@@ -27,11 +23,10 @@ import de.tum.`in`.tumcampusapp.utils.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_onboarding_start.lrzIdTextView
-import kotlinx.android.synthetic.main.fragment_onboarding_start.nextButton
-import kotlinx.android.synthetic.main.toolbar.toolbar
+import kotlinx.android.synthetic.main.fragment_onboarding_start.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.inputMethodManager
-import java.util.Locale
+import java.util.*
 import javax.inject.Inject
 
 sealed class TokenResponse {
@@ -40,8 +35,8 @@ sealed class TokenResponse {
 }
 
 class OnboardingStartFragment : BaseFragment<Unit>(
-    R.layout.fragment_onboarding_start,
-    R.string.connect_to_tum_online
+        R.layout.fragment_onboarding_start,
+        R.string.connect_to_tum_online
 ) {
 
     private val compositeDisposable = CompositeDisposable()
@@ -73,13 +68,13 @@ class OnboardingStartFragment : BaseFragment<Unit>(
         lrzIdTextView.setText(lrzId)
 
         compositeDisposable += lrzIdTextView.textChanges()
-            .map { it.toString() }
-            .subscribe {
-                val isEmpty = it.isBlank()
-                val alpha = if (isEmpty) 0.5f else 1.0f
-                nextButton.isClickable = !isEmpty
-                nextButton.alpha = alpha
-            }
+                .map { it.toString() }
+                .subscribe {
+                    val isEmpty = it.isBlank()
+                    val alpha = if (isEmpty) 0.5f else 1.0f
+                    nextButton.isClickable = !isEmpty
+                    nextButton.alpha = alpha
+                }
 
         nextButton.setOnClickListener { onNextPressed() }
     }
@@ -107,18 +102,18 @@ class OnboardingStartFragment : BaseFragment<Unit>(
 
         if (AccessTokenManager.hasValidAccessToken(requireContext())) {
             AlertDialog.Builder(requireContext())
-                .setMessage(getString(R.string.error_access_token_already_set_generate_new))
-                .setPositiveButton(getString(R.string.generate_new_token)) { _, _ ->
-                    generateNewToken(enteredId)
-                }
-                .setNegativeButton(getString(R.string.use_existing)) { _, _ ->
-                    openNextOnboardingStep()
-                }
-                .create()
-                .apply {
-                    window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
-                }
-                .show()
+                    .setMessage(getString(R.string.error_access_token_already_set_generate_new))
+                    .setPositiveButton(getString(R.string.generate_new_token)) { _, _ ->
+                        generateNewToken(enteredId)
+                    }
+                    .setNegativeButton(getString(R.string.use_existing)) { _, _ ->
+                        openNextOnboardingStep()
+                    }
+                    .create()
+                    .apply {
+                        window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
+                    }
+                    .show()
         } else {
             requestNewToken(enteredId)
         }
@@ -133,19 +128,19 @@ class OnboardingStartFragment : BaseFragment<Unit>(
         val tokenName = "TUMCampusApp-" + Build.PRODUCT
 
         compositeDisposable += tumOnlineClient
-            .requestToken(publicKey, tokenName)
-            .map { TokenResponse.Success(it) as TokenResponse }
-            .doOnError(Utils::log)
-            .onErrorReturn { TokenResponse.Failure(it) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                showLoadingEnded()
-                when (response) {
-                    is TokenResponse.Success -> handleTokenDownloadSuccess(response.token)
-                    is TokenResponse.Failure -> handleTokenDownloadFailure(response.t)
+                .requestToken(publicKey, tokenName)
+                .map { TokenResponse.Success(it) as TokenResponse }
+                .doOnError(Utils::log)
+                .onErrorReturn { TokenResponse.Failure(it) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { response ->
+                    showLoadingEnded()
+                    when (response) {
+                        is TokenResponse.Success -> handleTokenDownloadSuccess(response.token)
+                        is TokenResponse.Failure -> handleTokenDownloadFailure(response.t)
+                    }
                 }
-            }
     }
 
     /**
@@ -190,14 +185,14 @@ class OnboardingStartFragment : BaseFragment<Unit>(
         }
 
         AlertDialog.Builder(requireContext())
-            .setMessage(messageResId)
-            .setPositiveButton(R.string.ok, null)
-            .setCancelable(true)
-            .create()
-            .apply {
-                window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
-            }
-            .show()
+                .setMessage(messageResId)
+                .setPositiveButton(R.string.ok, null)
+                .setCancelable(true)
+                .create()
+                .apply {
+                    window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
+                }
+                .show()
     }
 
     private fun generateNewToken(enteredId: String) {

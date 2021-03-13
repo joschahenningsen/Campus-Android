@@ -5,7 +5,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-
 import de.tum.in.tumcampusapp.component.ui.alarm.model.FcmNotification;
 
 @Dao

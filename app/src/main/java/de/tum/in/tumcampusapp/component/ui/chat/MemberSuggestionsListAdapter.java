@@ -18,7 +18,7 @@ public class MemberSuggestionsListAdapter extends BaseAdapter implements Filtera
 
     private List<ChatMember> originalData;
     private List<ChatMember> members;
-    private Context mContext;
+    private final Context mContext;
 
     // constructor
     MemberSuggestionsListAdapter(Context context, List<ChatMember> members) {
@@ -28,17 +28,11 @@ public class MemberSuggestionsListAdapter extends BaseAdapter implements Filtera
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            view = LayoutInflater.from(mContext)
-                                 .inflate(android.R.layout.simple_list_item_2, parent, false);
+    public int getCount() {
+        if (members == null) {
+            return 0;
         }
-        ((TextView) view.findViewById(android.R.id.text1)).setText(members.get(position)
-                                                                          .getDisplayName());
-        ((TextView) view.findViewById(android.R.id.text2)).setText(members.get(position)
-                                                                          .getLrzId());
-        return view;
+        return members.size();
     }
 
     @Override
@@ -60,11 +54,17 @@ public class MemberSuggestionsListAdapter extends BaseAdapter implements Filtera
     }
 
     @Override
-    public int getCount() {
-        if (members == null) {
-            return 0;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            view = LayoutInflater.from(mContext)
+                                 .inflate(android.R.layout.simple_list_item_2, parent, false);
         }
-        return members.size();
+        ((TextView) view.findViewById(android.R.id.text1)).setText(members.get(position)
+                                                                          .getDisplayName());
+        ((TextView) view.findViewById(android.R.id.text2)).setText(members.get(position)
+                                                                          .getLrzId());
+        return view;
     }
 
     public void updateSuggestions(List<ChatMember> members) {

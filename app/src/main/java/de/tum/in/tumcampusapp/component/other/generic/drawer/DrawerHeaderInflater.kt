@@ -12,7 +12,7 @@ import de.tum.`in`.tumcampusapp.api.tumonline.AccessTokenManager
 import de.tum.`in`.tumcampusapp.component.ui.onboarding.OnboardingActivity
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.Utils
-import java.util.Locale
+import java.util.*
 
 class DrawerHeaderInflater(
     private val context: Context
@@ -80,13 +80,13 @@ class DrawerHeaderInflater(
         val group = parts[0]
         val personId = parts[1]
         val url = String.format(Locale.getDefault(),
-            Const.TUM_ONLINE_PROFILE_PICTURE_URL_FORMAT_STRING, group, personId)
+                Const.TUM_ONLINE_PROFILE_PICTURE_URL_FORMAT_STRING, group, personId)
 
         val imageView = headerView.findViewById<CircleImageView>(R.id.profileImageView)
         Picasso.get()
-            .load(url)
-            .error(R.drawable.photo_not_available)
-            .placeholder(R.drawable.photo_not_available)
-            .into(imageView)
+                .load(url)
+                .error(R.drawable.photo_not_available)
+                .placeholder(R.drawable.photo_not_available)
+                .into(imageView)
     }
 }

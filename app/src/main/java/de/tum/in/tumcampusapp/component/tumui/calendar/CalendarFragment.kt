@@ -33,13 +33,11 @@ import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_calendar.todayButton
+import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
-import java.util.ArrayList
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 class CalendarFragment : FragmentForAccessingTumOnline<EventsResponse>(
         R.layout.fragment_calendar,
@@ -155,8 +153,8 @@ class CalendarFragment : FragmentForAccessingTumOnline<EventsResponse>(
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        val menuItemExportGoogle = menu?.findItem(R.id.action_export_calendar)
-        val menuItemDeleteCalendar = menu?.findItem(R.id.action_delete_calendar)
+        val menuItemExportGoogle = menu.findItem(R.id.action_export_calendar)
+        val menuItemDeleteCalendar = menu.findItem(R.id.action_delete_calendar)
 
         menuItemExportGoogle?.isEnabled = isFetched
         menuItemDeleteCalendar?.isEnabled = isFetched
@@ -167,10 +165,10 @@ class CalendarFragment : FragmentForAccessingTumOnline<EventsResponse>(
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater?.inflate(R.menu.menu_sync_calendar, menu)
+        inflater.inflate(R.menu.menu_sync_calendar, menu)
 
-        menuItemSwitchView = menu?.findItem(R.id.action_switch_view_mode)
-        menuItemFilterCanceled = menu?.findItem(R.id.action_calendar_filter_canceled)
+        menuItemSwitchView = menu.findItem(R.id.action_switch_view_mode)
+        menuItemFilterCanceled = menu.findItem(R.id.action_calendar_filter_canceled)
 
         refreshWeekView()
         initFilterCheckboxes()

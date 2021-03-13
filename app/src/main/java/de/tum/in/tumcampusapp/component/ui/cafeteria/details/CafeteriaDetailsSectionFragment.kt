@@ -46,7 +46,7 @@ class CafeteriaDetailsSectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        inflater.inflate(R.layout.fragment_cafeteriadetails_section, container, false)
+            inflater.inflate(R.layout.fragment_cafeteriadetails_section, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val menuDate = arguments?.getSerializable(Const.DATE) as DateTime

@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.View
 import de.tum.`in`.tumcampusapp.R
 import de.tum.`in`.tumcampusapp.component.other.generic.fragment.BaseFragment
-import kotlinx.android.synthetic.main.fragment_barrierfree_info.barrierFreeListView
+import kotlinx.android.synthetic.main.fragment_barrierfree_info.*
 
 class BarrierFreeInfoFragment : BaseFragment<Unit>(
-    R.layout.fragment_barrierfree_info,
-    R.string.barrier_free
+        R.layout.fragment_barrierfree_info,
+        R.string.barrier_free
 ) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

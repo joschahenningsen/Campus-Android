@@ -11,9 +11,9 @@ class RoomFinderActivity : BaseActivity(R.layout.activity_roomfinder) {
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.contentFrame, RoomFinderFragment.newInstance())
-                .commit()
+                    .beginTransaction()
+                    .replace(R.id.contentFrame, RoomFinderFragment.newInstance())
+                    .commit()
         }
     }
 }

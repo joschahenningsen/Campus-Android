@@ -17,13 +17,13 @@ import de.tum.`in`.tumcampusapp.di.injector
 import de.tum.`in`.tumcampusapp.service.DownloadWorker
 import de.tum.`in`.tumcampusapp.utils.NetUtils
 import de.tum.`in`.tumcampusapp.utils.Utils
-import kotlinx.android.synthetic.main.fragment_news.newsRecyclerView
+import kotlinx.android.synthetic.main.fragment_news.*
 import java.lang.Math.round
 import javax.inject.Inject
 
 class NewsFragment : FragmentForDownloadingExternal(
-    R.layout.fragment_news,
-    R.string.news
+        R.layout.fragment_news,
+        R.string.news
 ) {
 
     @Inject
@@ -83,12 +83,12 @@ class NewsFragment : FragmentForDownloadingExternal(
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater?.inflate(R.menu.menu_activity_news, menu)
+        inflater.inflate(R.menu.menu_activity_news, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item?.itemId) {
+        return when (item.itemId) {
             R.id.action_disable_sources -> {
                 showNewsSourcesDialog()
                 true
@@ -106,12 +106,12 @@ class NewsFragment : FragmentForDownloadingExternal(
         }.toTypedArray().toBooleanArray()
 
         AlertDialog.Builder(requireContext())
-            .setMultiChoiceItems(items, checked, this::onNewsSourceToggled)
-            .create()
-            .apply {
-                window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
-            }
-            .show()
+                .setMultiChoiceItems(items, checked, this::onNewsSourceToggled)
+                .create()
+                .apply {
+                    window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
+                }
+                .show()
     }
 
     private fun onNewsSourceToggled(dialog: DialogInterface, index: Int, isChecked: Boolean) {

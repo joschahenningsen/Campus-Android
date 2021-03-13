@@ -43,9 +43,8 @@ public class AddChatMemberActivity extends BaseActivity {
 
     // for delayed suggestions
     private Handler delayHandler;
-    private Runnable suggestionRunnable = this::getSuggestions;
-
     private List<ChatMember> suggestions;
+    private final Runnable suggestionRunnable = this::getSuggestions;
 
     public AddChatMemberActivity() {
         super(R.layout.activity_add_chat_member);
@@ -178,7 +177,7 @@ public class AddChatMemberActivity extends BaseActivity {
 
     private void showConfirmDialog(ChatMember member) {
         String message = getString(R.string.add_user_to_chat_message,
-                member.getDisplayName(), room.getTitle());
+                                   member.getDisplayName(), room.getTitle());
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
@@ -189,7 +188,8 @@ public class AddChatMemberActivity extends BaseActivity {
                 .create();
 
         if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(R.drawable.rounded_corners_background);
+            dialog.getWindow()
+                  .setBackgroundDrawableResource(R.drawable.rounded_corners_background);
         }
 
         dialog.show();
@@ -212,26 +212,26 @@ public class AddChatMemberActivity extends BaseActivity {
         }
 
         TUMCabeClient.getInstance(this)
-                .addUserToChat(room, member, verification, new Callback<ChatRoom>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ChatRoom> call,
-                                           @NonNull Response<ChatRoom> response) {
-                        ChatRoom room = response.body();
-                        if (room != null) {
-                            TcaDb.Companion.getInstance(getBaseContext())
-                                           .chatRoomDao()
-                                           .updateMemberCount(room.getMembers(), room.getId());
-                            Utils.showToast(getBaseContext(), R.string.chat_member_added);
-                        } else {
-                            Utils.showToast(getBaseContext(), R.string.error_something_wrong);
-                        }
-                    }
+                     .addUserToChat(room, member, verification, new Callback<ChatRoom>() {
+                         @Override
+                         public void onResponse(@NonNull Call<ChatRoom> call,
+                                                @NonNull Response<ChatRoom> response) {
+                             ChatRoom room = response.body();
+                             if (room != null) {
+                                 TcaDb.Companion.getInstance(getBaseContext())
+                                                .chatRoomDao()
+                                                .updateMemberCount(room.getMembers(), room.getId());
+                                 Utils.showToast(getBaseContext(), R.string.chat_member_added);
+                             } else {
+                                 Utils.showToast(getBaseContext(), R.string.error_something_wrong);
+                             }
+                         }
 
-                    @Override
-                    public void onFailure(@NonNull Call<ChatRoom> call, @NonNull Throwable t) {
-                        Utils.showToast(getBaseContext(), R.string.error);
-                    }
-                });
+                         @Override
+                         public void onFailure(@NonNull Call<ChatRoom> call, @NonNull Throwable t) {
+                             Utils.showToast(getBaseContext(), R.string.error);
+                         }
+                     });
     }
 
 }

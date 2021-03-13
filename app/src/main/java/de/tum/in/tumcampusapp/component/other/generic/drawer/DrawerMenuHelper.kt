@@ -56,8 +56,8 @@ class DrawerMenuHelper(
         val myTumMenu = navigationMenu.addSubMenu(R.string.my_tum)
         if (hasTumOnlineAccess) {
             val candidates = MY_TUM
-                .filterNot { !isChatEnabled && it.needsChatAccess }
-                .filterNot { isEmployeeMode && it.hideForEmployees }
+                    .filterNot { !isChatEnabled && it.needsChatAccess }
+                    .filterNot { isEmployeeMode && it.hideForEmployees }
 
             for (candidate in candidates) {
                 myTumMenu += candidate
@@ -110,8 +110,8 @@ class DrawerMenuHelper(
         items.forEach { it.isChecked = false }
 
         val currentIndex = allItems
-            .mapNotNull { it as? NavItem.FragmentDestination }
-            .indexOfFirst { it.fragment == currentFragment?.javaClass }
+                .mapNotNull { it as? NavItem.FragmentDestination }
+                .indexOfFirst { it.fragment == currentFragment?.javaClass }
 
         if (currentIndex != -1) {
             items[currentIndex].isCheckable = true

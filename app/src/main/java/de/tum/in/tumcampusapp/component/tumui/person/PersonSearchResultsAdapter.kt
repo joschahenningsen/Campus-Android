@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import de.tum.`in`.tumcampusapp.R
 import de.tum.`in`.tumcampusapp.component.tumui.person.model.Person
-import kotlinx.android.synthetic.main.person_search_result_item.view.textView
+import kotlinx.android.synthetic.main.person_search_result_item.view.*
 
 class PersonSearchResultsAdapter(
     private var items: List<Person>,

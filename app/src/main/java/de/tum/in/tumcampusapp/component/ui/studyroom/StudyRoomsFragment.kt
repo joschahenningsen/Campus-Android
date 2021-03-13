@@ -10,14 +10,12 @@ import android.widget.TextView
 import de.tum.`in`.tumcampusapp.R
 import de.tum.`in`.tumcampusapp.component.other.generic.fragment.FragmentForAccessingTumCabe
 import de.tum.`in`.tumcampusapp.component.ui.studyroom.model.StudyRoomGroup
-import kotlinx.android.synthetic.main.fragment_study_rooms.pager
-import kotlinx.android.synthetic.main.fragment_study_rooms.spinner
-import kotlinx.android.synthetic.main.fragment_study_rooms.spinnerContainer
+import kotlinx.android.synthetic.main.fragment_study_rooms.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 
 class StudyRoomsFragment : FragmentForAccessingTumCabe<List<StudyRoomGroup>>(
-    R.layout.fragment_study_rooms,
-    R.string.study_rooms
+        R.layout.fragment_study_rooms,
+        R.string.study_rooms
 ), AdapterView.OnItemSelectedListener {
 
     private val sectionsPagerAdapter by lazy { StudyRoomsPagerAdapter(requireFragmentManager()) }
@@ -30,10 +28,10 @@ class StudyRoomsFragment : FragmentForAccessingTumCabe<List<StudyRoomGroup>>(
     private val studyRoomGroupsSpinner: Spinner
         get() {
             val groupAdapter = object : ArrayAdapter<StudyRoomGroup>(
-                requireContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                android.R.id.text1,
-                groups
+                    requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item,
+                    android.R.id.text1,
+                    groups
             ) {
                 val inflater = LayoutInflater.from(context)
 

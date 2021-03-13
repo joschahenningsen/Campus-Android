@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_image_view_touch.*
 class ImageViewTouchFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_image_view_touch, container, false)
+            inflater.inflate(R.layout.fragment_image_view_touch, container, false)
 
     fun loadImage(url: String, onImageLoadingError: () -> Unit) {
         Utils.log("room finder url: $url")

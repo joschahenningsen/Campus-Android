@@ -71,7 +71,7 @@ public class ChatActivity extends ActivityForDownloadingExternal
     public static ChatRoom mCurrentOpenChatRoom; // determines whether there will be a notification or not
 
     private ChatMessageViewModel chatMessageViewModel;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     private ListView messagesListView;
     private ChatHistoryAdapter chatHistoryAdapter;
@@ -112,6 +112,12 @@ public class ChatActivity extends ActivityForDownloadingExternal
         bindUIElements();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposables.dispose();
+    }
+
     private void setupToolbarTitle() {
         String encodedChatRoom = getIntent().getStringExtra(Const.CURRENT_CHAT_ROOM);
         currentChatRoom = new Gson().fromJson(encodedChatRoom, ChatRoom.class);
@@ -132,23 +138,6 @@ public class ChatActivity extends ActivityForDownloadingExternal
         localRepository.setDb(tcaDb);
 
         chatMessageViewModel = new ChatMessageViewModel(localRepository, remoteRepository);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getNextHistoryFromServer(true);
-        mCurrentOpenChatRoom = currentChatRoom;
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null) {
-            notificationManager.cancel((currentChatRoom.getId() << 4) + CardManager.CARD_CHAT);
-        }
-
-        IntentFilter filter = new IntentFilter(Const.CHAT_BROADCAST_NAME);
-        LocalBroadcastManager.getInstance(this)
-                             .registerReceiver(receiver, filter);
     }
 
     private void handleBroadcastReceive(Intent intent) {
@@ -267,6 +256,23 @@ public class ChatActivity extends ActivityForDownloadingExternal
             chatHistoryAdapter = null;
             getNextHistoryFromServer(true);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getNextHistoryFromServer(true);
+        mCurrentOpenChatRoom = currentChatRoom;
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.cancel((currentChatRoom.getId() << 4) + CardManager.CARD_CHAT);
+        }
+
+        IntentFilter filter = new IntentFilter(Const.CHAT_BROADCAST_NAME);
+        LocalBroadcastManager.getInstance(this)
+                             .registerReceiver(receiver, filter);
     }
 
     @Override
@@ -455,28 +461,6 @@ public class ChatActivity extends ActivityForDownloadingExternal
         */
     }
 
-    private void showMessages(List<ChatMessage> messages) {
-        List<ChatMessage> unsent = chatMessageViewModel.getUnsentInChatRoom(currentChatRoom);
-        messages.addAll(unsent);
-
-        Collections.sort(messages, (lhs, rhs) -> lhs.getTimestamp()
-                                                    .compareTo(rhs.getTimestamp()));
-        chatHistoryAdapter.updateHistory(messages);
-
-        if (messages.isEmpty()) {
-            messagesListView.removeHeaderView(progressbar);
-            return;
-        }
-
-        // We remove the progress indicator in the header view if all messages are loaded
-        ChatMessage firstMessage = messages.get(0);
-        if (firstMessage.getPrevious() == 0 || chatHistoryAdapter.isEmpty()) {
-            messagesListView.removeHeaderView(progressbar);
-        } else {
-            isLoadingMore = false;
-        }
-    }
-
     /*
     private void onMessagesLoaded() {
         final List<ChatMessage> messages = chatMessageViewModel.getAll(currentChatRoom.getId());
@@ -501,9 +485,25 @@ public class ChatActivity extends ActivityForDownloadingExternal
     }
     */
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        disposables.dispose();
+    private void showMessages(List<ChatMessage> messages) {
+        List<ChatMessage> unsent = chatMessageViewModel.getUnsentInChatRoom(currentChatRoom);
+        messages.addAll(unsent);
+
+        Collections.sort(messages, (lhs, rhs) -> lhs.getTimestamp()
+                                                    .compareTo(rhs.getTimestamp()));
+        chatHistoryAdapter.updateHistory(messages);
+
+        if (messages.isEmpty()) {
+            messagesListView.removeHeaderView(progressbar);
+            return;
+        }
+
+        // We remove the progress indicator in the header view if all messages are loaded
+        ChatMessage firstMessage = messages.get(0);
+        if (firstMessage.getPrevious() == 0 || chatHistoryAdapter.isEmpty()) {
+            messagesListView.removeHeaderView(progressbar);
+        } else {
+            isLoadingMore = false;
+        }
     }
 }

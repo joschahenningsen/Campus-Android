@@ -23,7 +23,6 @@ import javax.inject.Inject
  * Cafeteria Menu Manager, handles database stuff, external imports
  */
 class CafeteriaMenuManager
-
 @Inject
 constructor(private val context: Context) {
     private val menuDao: CafeteriaMenuDao

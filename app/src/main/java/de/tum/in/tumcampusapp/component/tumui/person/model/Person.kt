@@ -33,7 +33,8 @@ data class Person(
         const val FEMALE = "W"
         const val MALE = "M"
 
-        @JvmStatic fun fromRecent(r: Recent): Person {
+        @JvmStatic
+        fun fromRecent(r: Recent): Person {
             val split = r.name.split("\\$".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val p = Person()
             p.id = split[0]

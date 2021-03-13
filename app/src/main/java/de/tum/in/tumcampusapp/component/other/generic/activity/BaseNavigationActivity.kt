@@ -25,7 +25,7 @@ import de.tum.`in`.tumcampusapp.utils.closeDrawers
 import org.jetbrains.anko.defaultSharedPreferences
 
 class BaseNavigationActivity : BaseActivity(
-    R.layout.activity_main
+        R.layout.activity_main
 ), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val drawerHeaderInflater: DrawerHeaderInflater by lazy {
@@ -62,9 +62,9 @@ class BaseNavigationActivity : BaseActivity(
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.contentFrame, MainFragment.newInstance())
-                .commit()
+                    .beginTransaction()
+                    .replace(R.id.contentFrame, MainFragment.newInstance())
+                    .commit()
         }
 
         // open settings if app has been restarted after language change
@@ -102,7 +102,7 @@ class BaseNavigationActivity : BaseActivity(
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         drawerToggle = object : ActionBarDrawerToggle(this, drawerLayout,
-            toolbar, R.string.drawer_open, R.string.drawer_close) {}
+                toolbar, R.string.drawer_open, R.string.drawer_close) {}
 
         supportActionBar?.let {
             enableDrawer(true)

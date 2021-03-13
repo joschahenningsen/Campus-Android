@@ -22,19 +22,15 @@ import de.tum.`in`.tumcampusapp.utils.CacheManager
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.NetUtils
 import de.tum.`in`.tumcampusapp.utils.Utils
-import kotlinx.android.synthetic.main.fragment_onboarding_extras.bugReportsCheckBox
-import kotlinx.android.synthetic.main.fragment_onboarding_extras.finishButton
-import kotlinx.android.synthetic.main.fragment_onboarding_extras.groupChatCheckBox
-import kotlinx.android.synthetic.main.fragment_onboarding_extras.privacyPolicyButton
-import kotlinx.android.synthetic.main.fragment_onboarding_extras.silentModeCheckBox
+import kotlinx.android.synthetic.main.fragment_onboarding_extras.*
 import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.browse
 import java.io.IOException
 import javax.inject.Inject
 
 class OnboardingExtrasFragment : FragmentForLoadingInBackground<ChatMember>(
-    R.layout.fragment_onboarding_extras,
-    R.string.connect_to_tum_online
+        R.layout.fragment_onboarding_extras,
+        R.string.connect_to_tum_online
 ) {
 
     private val onboardingComponent: OnboardingComponent by lazy {
@@ -67,7 +63,7 @@ class OnboardingExtrasFragment : FragmentForLoadingInBackground<ChatMember>(
 
         if (AccessTokenManager.hasValidAccessToken(requireContext())) {
             silentModeCheckBox.isChecked =
-                Utils.getSettingBool(requireContext(), Const.SILENCE_SERVICE, false)
+                    Utils.getSettingBool(requireContext(), Const.SILENCE_SERVICE, false)
             silentModeCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked && !SilenceService.hasPermissions(requireContext())) {
                     SilenceService.requestPermissions(requireContext())
@@ -81,7 +77,7 @@ class OnboardingExtrasFragment : FragmentForLoadingInBackground<ChatMember>(
 
         if (AccessTokenManager.hasValidAccessToken(requireContext())) {
             groupChatCheckBox.isChecked =
-                Utils.getSettingBool(requireContext(), Const.GROUP_CHAT_ENABLED, true)
+                    Utils.getSettingBool(requireContext(), Const.GROUP_CHAT_ENABLED, true)
         } else {
             groupChatCheckBox.isChecked = false
             groupChatCheckBox.isEnabled = false
@@ -105,7 +101,7 @@ class OnboardingExtrasFragment : FragmentForLoadingInBackground<ChatMember>(
 
         val lrzId = Utils.getSetting(requireContext(), Const.LRZ_ID, "")
         val name = Utils.getSetting(requireContext(),
-            Const.CHAT_ROOM_DISPLAY_NAME, getString(R.string.not_connected_to_tumonline))
+                Const.CHAT_ROOM_DISPLAY_NAME, getString(R.string.not_connected_to_tumonline))
 
         val currentChatMember = ChatMember(lrzId)
         currentChatMember.displayName = name
@@ -165,18 +161,18 @@ class OnboardingExtrasFragment : FragmentForLoadingInBackground<ChatMember>(
         // Gets the editor for editing preferences and updates the preference values with the
         // chosen state
         requireContext()
-            .defaultSharedPreferences
-            .edit {
-                putBoolean(Const.SILENCE_SERVICE, silentModeCheckBox.isChecked)
-                putBoolean(Const.BACKGROUND_MODE, true) // Enable by default
-                putBoolean(Const.BUG_REPORTS, bugReportsCheckBox.isChecked)
+                .defaultSharedPreferences
+                .edit {
+                    putBoolean(Const.SILENCE_SERVICE, silentModeCheckBox.isChecked)
+                    putBoolean(Const.BACKGROUND_MODE, true) // Enable by default
+                    putBoolean(Const.BUG_REPORTS, bugReportsCheckBox.isChecked)
 
-                if (!result.lrzId.isNullOrEmpty()) {
-                    putBoolean(Const.GROUP_CHAT_ENABLED, groupChatCheckBox.isChecked)
-                    putBoolean(Const.AUTO_JOIN_NEW_ROOMS, groupChatCheckBox.isChecked)
-                    put(Const.CHAT_MEMBER, result)
+                    if (!result.lrzId.isNullOrEmpty()) {
+                        putBoolean(Const.GROUP_CHAT_ENABLED, groupChatCheckBox.isChecked)
+                        putBoolean(Const.AUTO_JOIN_NEW_ROOMS, groupChatCheckBox.isChecked)
+                        put(Const.CHAT_MEMBER, result)
+                    }
                 }
-            }
 
         finishOnboarding()
     }

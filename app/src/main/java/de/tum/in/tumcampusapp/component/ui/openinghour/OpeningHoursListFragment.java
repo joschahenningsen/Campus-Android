@@ -55,6 +55,15 @@ public class OpeningHoursListFragment extends BaseFragment<Unit>
     }
 
     @Override
+    public void onSaveInstanceState(@NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mActivatedPosition != AdapterView.INVALID_POSITION) {
+            // Serialize and persist the activated item position.
+            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+        }
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         String item = adapter.getItem(position);
         onItemSelected(position, item);
@@ -68,15 +77,6 @@ public class OpeningHoursListFragment extends BaseFragment<Unit>
         Intent intent = new Intent(requireContext(), OpeningHoursDetailActivity.class);
         intent.putExtras(args);
         requireContext().startActivity(intent);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NotNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mActivatedPosition != AdapterView.INVALID_POSITION) {
-            // Serialize and persist the activated item position.
-            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
-        }
     }
 
     @Override

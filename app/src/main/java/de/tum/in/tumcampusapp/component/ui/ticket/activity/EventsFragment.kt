@@ -15,13 +15,13 @@ import de.tum.`in`.tumcampusapp.component.ui.ticket.fragment.EventsListFragment
 import de.tum.`in`.tumcampusapp.component.ui.ticket.model.EventType
 import de.tum.`in`.tumcampusapp.di.injector
 import de.tum.`in`.tumcampusapp.service.DownloadWorker
-import kotlinx.android.synthetic.main.fragment_events.viewPager
-import java.util.Arrays
+import kotlinx.android.synthetic.main.fragment_events.*
+import java.util.*
 import javax.inject.Inject
 
 class EventsFragment : FragmentForDownloadingExternal(
-    R.layout.fragment_events,
-    R.string.events_tickets
+        R.layout.fragment_events,
+        R.string.events_tickets
 ) {
 
     @Inject
@@ -68,8 +68,8 @@ class EventsFragment : FragmentForDownloadingExternal(
     ) : FragmentPagerAdapter(manager) {
 
         private val titles = Arrays.asList(
-            context.getString(R.string.all_events),
-            context.getString(R.string.booked_events)
+                context.getString(R.string.all_events),
+                context.getString(R.string.booked_events)
         )
 
         override fun getItem(position: Int): Fragment {

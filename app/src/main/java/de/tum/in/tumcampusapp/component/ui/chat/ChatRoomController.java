@@ -2,8 +2,6 @@ package de.tum.in.tumcampusapp.component.ui.chat;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -15,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import de.tum.in.tumcampusapp.api.app.TUMCabeClient;
 import de.tum.in.tumcampusapp.api.app.model.TUMCabeVerification;
 import de.tum.in.tumcampusapp.api.tumonline.CacheControl;
@@ -36,8 +35,8 @@ import retrofit2.Response;
  */
 public class ChatRoomController implements ProvidesCard {
 
-    private Context mContext;
     private final ChatRoomDao chatRoomDao;
+    private final Context mContext;
 
     /**
      * Constructor, open/create database, create table if necessary
@@ -188,7 +187,7 @@ public class ChatRoomController implements ProvidesCard {
 
         List<String> list = new ArrayList<>(rooms.size());
         for (ChatRoomDbRow room : rooms) {
-            list.add(String.valueOf(room.getSemesterId() + ':' + room.getName()));
+            list.add(room.getSemesterId() + ':' + room.getName());
         }
         return list;
     }

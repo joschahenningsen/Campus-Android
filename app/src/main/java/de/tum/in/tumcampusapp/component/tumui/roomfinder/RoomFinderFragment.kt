@@ -14,16 +14,16 @@ import de.tum.`in`.tumcampusapp.component.tumui.roomfinder.model.RoomFinderRoom
 import de.tum.`in`.tumcampusapp.database.TcaDb
 import de.tum.`in`.tumcampusapp.utils.NetUtils
 import de.tum.`in`.tumcampusapp.utils.Utils
-import kotlinx.android.synthetic.main.fragment_roomfinder.listView
+import kotlinx.android.synthetic.main.fragment_roomfinder.*
 import java.io.IOException
 import java.io.Serializable
 import java.util.regex.Pattern
 
 class RoomFinderFragment : FragmentForSearchingInBackground<List<RoomFinderRoom>>(
-    R.layout.fragment_roomfinder,
-    R.string.roomfinder,
-    RoomFinderSuggestionProvider.AUTHORITY,
-    minLen = 3
+        R.layout.fragment_roomfinder,
+        R.string.roomfinder,
+        RoomFinderSuggestionProvider.AUTHORITY,
+        minLen = 3
 ) {
 
     private val recentsDao by lazy { TcaDb.getInstance(requireContext()).recentsDao() }
@@ -68,8 +68,8 @@ class RoomFinderFragment : FragmentForSearchingInBackground<List<RoomFinderRoom>
     override fun onSearchInBackground(query: String): List<RoomFinderRoom>? {
         return try {
             TUMCabeClient
-                .getInstance(requireContext())
-                .fetchRooms(userRoomSearchMatching(query))
+                    .getInstance(requireContext())
+                    .fetchRooms(userRoomSearchMatching(query))
         } catch (e: IOException) {
             Utils.log(e)
             null

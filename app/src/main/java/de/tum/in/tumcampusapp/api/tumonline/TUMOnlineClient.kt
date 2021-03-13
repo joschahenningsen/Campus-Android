@@ -126,12 +126,12 @@ class TUMOnlineClient(private val apiService: TUMOnlineAPIService) {
             val xmlConverterFactory = TikXmlConverterFactory.create(tikXml)
 
             val apiService = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(xmlConverterFactory)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-                .create(TUMOnlineAPIService::class.java)
+                    .baseUrl(BASE_URL)
+                    .client(client)
+                    .addConverterFactory(xmlConverterFactory)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build()
+                    .create(TUMOnlineAPIService::class.java)
             return TUMOnlineClient(apiService)
         }
     }

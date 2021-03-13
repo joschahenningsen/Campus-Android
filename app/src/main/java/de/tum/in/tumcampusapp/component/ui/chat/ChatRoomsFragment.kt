@@ -36,8 +36,7 @@ import de.tum.`in`.tumcampusapp.component.ui.chat.model.ChatRoom
 import de.tum.`in`.tumcampusapp.component.ui.chat.model.ChatRoomAndLastMessage
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.Utils
-import kotlinx.android.synthetic.main.fragment_chat_rooms.chatRoomTabs
-import kotlinx.android.synthetic.main.fragment_chat_rooms.chatRoomsListView
+import kotlinx.android.synthetic.main.fragment_chat_rooms.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,8 +45,8 @@ import java.io.IOException
 import java.net.UnknownHostException
 
 class ChatRoomsFragment : FragmentForAccessingTumOnline<LecturesResponse>(
-    R.layout.fragment_chat_rooms,
-    R.string.chat_rooms
+        R.layout.fragment_chat_rooms,
+        R.string.chat_rooms
 ) {
 
     private var currentMode = ChatRoom.MODE_JOINED
@@ -129,8 +128,8 @@ class ChatRoomsFragment : FragmentForAccessingTumOnline<LecturesResponse>(
                 }
 
                 val rooms = TUMCabeClient
-                    .getInstance(requireContext())
-                    .getMemberRooms(currentChatMember.id, verification)
+                        .getInstance(requireContext())
+                        .getMemberRooms(currentChatMember.id, verification)
                 manager.replaceIntoRooms(rooms)
             } catch (e: IOException) {
                 Utils.log(e)
@@ -165,7 +164,7 @@ class ChatRoomsFragment : FragmentForAccessingTumOnline<LecturesResponse>(
     private fun populateCurrentChatMember() {
         if (currentChatMember == null) {
             currentChatMember = Utils.getSetting(
-                requireContext(), Const.CHAT_MEMBER, ChatMember::class.java)
+                    requireContext(), Const.CHAT_MEMBER, ChatMember::class.java)
         }
     }
 
@@ -178,8 +177,8 @@ class ChatRoomsFragment : FragmentForAccessingTumOnline<LecturesResponse>(
         intent.putExtras(bundle)
 
         val chatRoomUid = item.chatRoomDbRow!!
-            .semesterId + ':'.toString() + item.chatRoomDbRow!!
-            .name
+                .semesterId + ':'.toString() + item.chatRoomDbRow!!
+                .name
         createOrJoinChatRoom(chatRoomUid)
     }
 
@@ -235,8 +234,8 @@ class ChatRoomsFragment : FragmentForAccessingTumOnline<LecturesResponse>(
         }
 
         TUMCabeClient
-            .getInstance(requireContext())
-            .createRoom(currentChatRoom, verification, callback)
+                .getInstance(requireContext())
+                .createRoom(currentChatRoom, verification, callback)
     }
 
     /**
@@ -250,7 +249,7 @@ class ChatRoomsFragment : FragmentForAccessingTumOnline<LecturesResponse>(
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater?.inflate(R.menu.menu_activity_chat_rooms, menu)
+        inflater.inflate(R.menu.menu_activity_chat_rooms, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -277,27 +276,27 @@ class ChatRoomsFragment : FragmentForAccessingTumOnline<LecturesResponse>(
         val input = view.findViewById<EditText>(R.id.inputEditText)
 
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.new_chat_room)
-            .setMessage(R.string.new_chat_room_desc)
-            .setView(view)
-            .setPositiveButton(R.string.create) { dialogInterface, whichButton ->
-                val value = input.text
-                    .toString()
-                val randId = Integer.toHexString((Math.random() * 4096).toInt())
-                createOrJoinChatRoom("$randId:$value")
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-            .create()
-            .apply {
-                window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
-            }
-            .show()
+                .setTitle(R.string.new_chat_room)
+                .setMessage(R.string.new_chat_room_desc)
+                .setView(view)
+                .setPositiveButton(R.string.create) { dialogInterface, whichButton ->
+                    val value = input.text
+                            .toString()
+                    val randId = Integer.toHexString((Math.random() * 4096).toInt())
+                    createOrJoinChatRoom("$randId:$value")
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .apply {
+                    window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
+                }
+                .show()
     }
 
     private fun joinChatRoom() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val permissionCheck = ActivityCompat
-                .checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                    .checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
 
             if (permissionCheck == PackageManager.PERMISSION_DENIED) {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)

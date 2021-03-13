@@ -16,9 +16,9 @@ class StudyRoomsActivity : BaseActivity(
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.contentFrame, StudyRoomsFragment.newInstance())
-                .commit()
+                    .beginTransaction()
+                    .replace(R.id.contentFrame, StudyRoomsFragment.newInstance())
+                    .commit()
         }
     }
 }

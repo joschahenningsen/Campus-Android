@@ -51,12 +51,12 @@ object NavigationManager {
 
     private fun openFragment(activity: BaseNavigationActivity, fragment: Fragment) {
         activity
-            .supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(R.anim.fadein, R.anim.fadeout)
-            .replace(R.id.contentFrame, fragment)
-            .ensureBackToHome(activity)
-            .commit()
+                .supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.fadein, R.anim.fadeout)
+                .replace(R.id.contentFrame, fragment)
+                .ensureBackToHome(activity)
+                .commit()
     }
 
     private fun FragmentTransaction.ensureBackToHome(

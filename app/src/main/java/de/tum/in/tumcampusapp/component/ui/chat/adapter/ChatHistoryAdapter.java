@@ -27,10 +27,10 @@ public class ChatHistoryAdapter extends BaseAdapter {
 
     private List<ChatMessage> chatHistoryList = new ArrayList<>();
 
-    private Context mContext;
-    private OnRetrySendListener mRetryListener;
+    private final Context mContext;
+    private final OnRetrySendListener mRetryListener;
 
-    private ChatMember currentChatMember;
+    private final ChatMember currentChatMember;
 
     public ChatHistoryAdapter(Context context, ChatMember member) {
         mContext = context;
@@ -55,21 +55,8 @@ public class ChatHistoryAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return chatHistoryList.get(position).getId();
-    }
-
-    public boolean isEmpty() {
-        return getCount() == 0;
-    }
-
-    public int getViewTypeCount() {
-        return 2;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        ChatMember member = getItem(position).getMember();
-        return currentChatMember.getId() == member.getId() ? OUTGOING_MESSAGE : INCOMING_MESSAGE;
+        return chatHistoryList.get(position)
+                              .getId();
     }
 
     @Override
@@ -82,7 +69,8 @@ public class ChatHistoryAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(layout, parent, false);
+            convertView = LayoutInflater.from(mContext)
+                                        .inflate(layout, parent, false);
             holder = new ViewHolder(convertView, isOutgoing);
             convertView.setTag(holder);
         } else {
@@ -91,6 +79,20 @@ public class ChatHistoryAdapter extends BaseAdapter {
 
         holder.bind(mContext, message, isOutgoing, mRetryListener);
         return convertView;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        ChatMember member = getItem(position).getMember();
+        return currentChatMember.getId() == member.getId() ? OUTGOING_MESSAGE : INCOMING_MESSAGE;
+    }
+
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    public boolean isEmpty() {
+        return getCount() == 0;
     }
 
     public void add(ChatMessage unsentMessage) {
@@ -135,10 +137,12 @@ public class ChatHistoryAdapter extends BaseAdapter {
                 sendingProgressBar.setVisibility(isSending ? View.VISIBLE : View.GONE);
                 updateSendingStatus(context, message);
             } else {
-                userTextView.setText(message.getMember().getDisplayName());
+                userTextView.setText(message.getMember()
+                                            .getDisplayName());
             }
 
-            String lrzId = message.getMember().getLrzId();
+            String lrzId = message.getMember()
+                                  .getLrzId();
             if (lrzId != null && lrzId.equals("bot")) {
                 userTextView.setText("");
                 timestampTextView.setText("");
@@ -160,7 +164,7 @@ public class ChatHistoryAdapter extends BaseAdapter {
 
                 if (dialog.getWindow() != null) {
                     dialog.getWindow()
-                            .setBackgroundDrawableResource(R.drawable.rounded_corners_background);
+                          .setBackgroundDrawableResource(R.drawable.rounded_corners_background);
                 }
 
                 dialog.show();

@@ -3,14 +3,15 @@ package de.tum.in.tumcampusapp.component.ui.eduroam;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import com.google.android.material.textfield.TextInputEditText;
-import androidx.appcompat.app.AlertDialog;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.regex.Pattern;
 
+import androidx.appcompat.app.AlertDialog;
 import de.tum.in.tumcampusapp.R;
 import de.tum.in.tumcampusapp.component.other.generic.activity.BaseActivity;
 import de.tum.in.tumcampusapp.utils.Const;
@@ -45,7 +46,8 @@ public class SetupEduroamActivity extends BaseActivity {
         password = findViewById(R.id.wifi_password);
 
         //Set the focus for improved UX experience
-        if (lrz.getText() != null && lrz.getText().length() == 0) {
+        if (lrz.getText() != null && lrz.getText()
+                                        .length() == 0) {
             lrz.requestFocus();
         } else {
             password.requestFocus();
@@ -68,7 +70,8 @@ public class SetupEduroamActivity extends BaseActivity {
                 .create();
 
         if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(R.drawable.rounded_corners_background);
+            dialog.getWindow()
+                  .setBackgroundDrawableResource(R.drawable.rounded_corners_background);
         }
 
         dialog.show();

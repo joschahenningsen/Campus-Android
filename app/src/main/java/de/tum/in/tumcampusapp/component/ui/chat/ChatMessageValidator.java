@@ -2,7 +2,6 @@ package de.tum.in.tumcampusapp.component.ui.chat;
 
 import android.util.Base64;
 
-
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.PublicKey;

@@ -33,13 +33,13 @@ abstract class FragmentForLoadingInBackground<T>(
 
         showLoadingStart()
         loadingDisposable += Observable.fromCallable<T> { onLoadInBackground() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ result ->
-                showLoadingEnded()
-                onLoadFinished(result)
-                isRunning.set(false)
-            }, { showError(R.string.error_something_wrong) })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    showLoadingEnded()
+                    onLoadFinished(result)
+                    isRunning.set(false)
+                }, { showError(R.string.error_something_wrong) })
     }
 
     /**

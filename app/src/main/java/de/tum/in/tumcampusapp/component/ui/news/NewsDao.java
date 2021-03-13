@@ -41,15 +41,15 @@ public interface NewsDao {
            "WHERE src IN (:sources) " +
            //Show latest news item only
            "AND id IN (SELECT id FROM (SELECT id, src FROM news " +
-                                      "WHERE datetime(date) <= datetime('now') " +
-                                      "AND src != 2 " +
-                                      "ORDER BY datetime(date) ASC) " +
-                      "GROUP BY src " +
+           "WHERE datetime(date) <= datetime('now') " +
+           "AND src != 2 " +
+           "ORDER BY datetime(date) ASC) " +
+           "GROUP BY src " +
            //Special treatment for TU Kino, as we want to actually display the upcoming movie
-                      "UNION SELECT id FROM (SELECT id, datetime(date) FROM news " +
-                                            "WHERE datetime(date) > datetime('now') " +
-                                            "AND src = 2 " +
-                                            "ORDER BY datetime(date) ASC LIMIT 1))" +
+           "UNION SELECT id FROM (SELECT id, datetime(date) FROM news " +
+           "WHERE datetime(date) > datetime('now') " +
+           "AND src = 2 " +
+           "ORDER BY datetime(date) ASC LIMIT 1))" +
            "ORDER BY date ASC")
     List<News> getBySourcesLatest(Integer[] sources);
 
@@ -63,6 +63,6 @@ public interface NewsDao {
     void flush();
 
     @Query("SELECT count(*) FROM events " +
-            "WHERE events.news =:newsId ")
+           "WHERE events.news =:newsId ")
     int hasEventAssociated(String newsId);
 }

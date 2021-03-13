@@ -17,8 +17,7 @@ import de.tum.`in`.tumcampusapp.utils.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_check_token.nextButton
-import kotlinx.android.synthetic.main.fragment_check_token.openTumOnlineButton
+import kotlinx.android.synthetic.main.fragment_check_token.*
 import org.jetbrains.anko.support.v4.browse
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -29,8 +28,8 @@ sealed class IdentityResponse {
 }
 
 class CheckTokenFragment : BaseFragment<Unit>(
-    R.layout.fragment_check_token,
-    R.string.connect_to_tum_online
+        R.layout.fragment_check_token,
+        R.string.connect_to_tum_online
 ) {
 
     private val compositeDisposable = CompositeDisposable()
@@ -62,18 +61,18 @@ class CheckTokenFragment : BaseFragment<Unit>(
         toast.show()
 
         compositeDisposable += tumOnlineClient.getIdentity()
-            .map { IdentityResponse.Success(it) as IdentityResponse }
-            .doOnError(Utils::log)
-            .onErrorReturn { IdentityResponse.Failure(it) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                toast.cancel()
-                when (response) {
-                    is IdentityResponse.Success -> handleDownloadSuccess(response.identity)
-                    is IdentityResponse.Failure -> handleDownloadFailure(response.throwable)
+                .map { IdentityResponse.Success(it) as IdentityResponse }
+                .doOnError(Utils::log)
+                .onErrorReturn { IdentityResponse.Failure(it) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { response ->
+                    toast.cancel()
+                    when (response) {
+                        is IdentityResponse.Success -> handleDownloadSuccess(response.identity)
+                        is IdentityResponse.Failure -> handleDownloadFailure(response.throwable)
+                    }
                 }
-            }
     }
 
     private fun handleDownloadSuccess(identitySet: IdentitySet) {

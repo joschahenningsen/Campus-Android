@@ -47,6 +47,7 @@ class TopNewsCard(context: Context) : Card(CardManager.CARD_TOP_NEWS, context, "
                         // remove progress bar
                         progress.visibility = View.GONE
                     }
+
                     override fun onError(e: Exception) {
                         discard()
                     }

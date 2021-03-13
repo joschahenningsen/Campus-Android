@@ -91,6 +91,22 @@ public class AuthenticationManager {
     }
 
     /**
+     * Convert a byte array to a more manageable base64 string to store it in the preferences.
+     */
+    private static String keyToBase64(byte[] key) {
+        return Base64.encodeToString(key, Base64.DEFAULT);
+    }
+
+    /**
+     * Generates a keypair with the given ALGORITHM & size
+     */
+    private static KeyPair generateKeyPair() {
+        KeyPairGenerator keyGen = getKeyPairGeneratorInstance();
+        keyGen.initialize(AuthenticationManager.RSA_KEY_SIZE);
+        return keyGen.generateKeyPair();
+    }
+
+    /**
      * Get the private key as string.
      *
      * @return
@@ -314,22 +330,6 @@ public class AuthenticationManager {
                              Utils.log("Upload obfuscated IDs status: " + status.getStatus());
                          }, Utils::log);
         }
-    }
-
-    /**
-     * Convert a byte array to a more manageable base64 string to store it in the preferences.
-     */
-    private static String keyToBase64(byte[] key) {
-        return Base64.encodeToString(key, Base64.DEFAULT);
-    }
-
-    /**
-     * Generates a keypair with the given ALGORITHM & size
-     */
-    private static KeyPair generateKeyPair() {
-        KeyPairGenerator keyGen = getKeyPairGeneratorInstance();
-        keyGen.initialize(AuthenticationManager.RSA_KEY_SIZE);
-        return keyGen.generateKeyPair();
     }
 
     /**

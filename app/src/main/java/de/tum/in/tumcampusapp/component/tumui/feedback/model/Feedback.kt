@@ -6,7 +6,7 @@ import android.os.Parcelable
 import de.tum.`in`.tumcampusapp.BuildConfig
 import de.tum.`in`.tumcampusapp.utils.Const
 import kotlinx.android.parcel.Parcelize
-import java.util.UUID
+import java.util.*
 
 /**
  * @param id to associate the pictures with the message

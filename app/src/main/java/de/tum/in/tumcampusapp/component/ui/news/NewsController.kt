@@ -50,8 +50,8 @@ class NewsController @Inject constructor(
     val activeSources: Collection<Int>
         get() {
             return newsSources
-                .map { it.id }
-                .filter { Utils.getSettingBool(context, "card_news_source_$it", true) }
+                    .map { it.id }
+                    .filter { Utils.getSettingBool(context, "card_news_source_$it", true) }
         }
 
     /**
@@ -75,7 +75,7 @@ class NewsController @Inject constructor(
 
         // Load all news sources
         try {
-            val sources = api.getNewsSources()
+            val sources = api.newsSources
             if (sources != null) {
                 newsSourcesDao.insert(sources)
             }
@@ -129,8 +129,8 @@ class NewsController @Inject constructor(
         val selectedNewspread = Utils.getSetting(this.context, "news_newspread", "7").toInt()
 
         val ids = newsSources
-            .map { it.id }
-            .filter { Utils.getSettingBool(context, "news_source_$it", it <= 7) }
+                .map { it.id }
+                .filter { Utils.getSettingBool(context, "news_source_$it", it <= 7) }
 
         return newsDao.getAll(ids.toTypedArray(), selectedNewspread)
     }
@@ -151,8 +151,8 @@ class NewsController @Inject constructor(
         }
 
         return news
-            .map { item -> if (item.isFilm) FilmCard(context, item) else NewsCard(context, item) }
-            .mapNotNull { it.getIfShowOnStart() }
+                .map { item -> if (item.isFilm) FilmCard(context, item) else NewsCard(context, item) }
+                .mapNotNull { it.getIfShowOnStart() }
     }
 
     override fun hasNotificationsEnabled(): Boolean {

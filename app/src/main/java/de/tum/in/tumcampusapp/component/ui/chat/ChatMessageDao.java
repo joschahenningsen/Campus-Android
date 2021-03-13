@@ -18,8 +18,8 @@ public interface ChatMessageDao {
     List<ChatMessage> getAll(int room);
 
     @Query("UPDATE chat_room SET last_read = "
-                + "case when (select MAX(_id) from chat_message where room=:room) is null then -1 "
-                + "else (select MAX(_id) from chat_message where room=:room) end "
+           + "case when (select MAX(_id) from chat_message where room=:room) is null then -1 "
+           + "else (select MAX(_id) from chat_message where room=:room) end "
            + "WHERE room=:room")
     void markAsRead(int room);
 

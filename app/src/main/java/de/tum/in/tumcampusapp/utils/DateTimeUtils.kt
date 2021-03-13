@@ -52,7 +52,7 @@ object DateTimeUtils {
                 "${context.getString(R.string.IN)} ${formatter.print(DateTime(diff))} " +
                         context.getString(R.string.MINUTES)
             }
-        // Be more precise by telling the user the exact time if below 3 hours
+            // Be more precise by telling the user the exact time if below 3 hours
             diff < 3 * HOUR_IN_MILLIS -> {
                 val formatter = DateTimeFormat.forPattern("HH:mm")
                         .withLocale(Locale.ENGLISH)

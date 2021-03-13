@@ -11,9 +11,9 @@ class NewsActivity : BaseActivity(R.layout.activity_news) {
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.contentFrame, NewsFragment.newInstance())
-                .commit()
+                    .beginTransaction()
+                    .replace(R.id.contentFrame, NewsFragment.newInstance())
+                    .commit()
         }
     }
 }
